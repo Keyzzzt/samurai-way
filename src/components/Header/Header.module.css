@@ -1,6 +1,6 @@
 .header {
     grid-area: header;
-    background-color: aquamarine;
+    background-color: #009999;
   }
 .logo {
     width: 100px;
