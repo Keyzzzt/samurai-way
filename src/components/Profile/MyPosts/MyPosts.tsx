@@ -3,7 +3,7 @@ import { Post } from './Post/Post'
 export const MyPosts = () => {
   return (
     <div className={s.container}>
-        <div>
+        <div className={s.addPost}>
           <div>
             <textarea></textarea>
           </div>
@@ -12,9 +12,9 @@ export const MyPosts = () => {
           </div>
         </div>
       <div>
-        <Post message={'Hello, I\'m frontend developer!'}/>
-        <Post message={'I also familiar with backend'}/>
-        <Post message={'When I start work for you?'}/>
+        <Post message={'Hello, I\'m frontend developer!'} likesCount={23}/>
+        <Post message={'I also familiar with backend!'} likesCount={11}/>
+        <Post message={'When I start work for you?'} likesCount={99}/>
       </div>
     </div>
   )
