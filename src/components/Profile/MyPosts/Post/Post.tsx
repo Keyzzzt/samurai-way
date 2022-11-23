@@ -1,5 +1,9 @@
 import s from "./Post.module.css"
-export const Post = () => {
+
+type PostPropsType = {
+  message: string
+}
+export const Post = ({message}: PostPropsType) => {
   return (
     <div className={s.container}>
       <div className={s.avatar}>
@@ -8,7 +12,7 @@ export const Post = () => {
           alt="avatar"
         />
       </div>
-      <div className={s.postMessage}>Hello I'm frontend developer!</div>
+      <div className={s.postMessage}>{message}</div>
     </div>
   )
 }

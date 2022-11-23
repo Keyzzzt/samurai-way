@@ -12,9 +12,9 @@ export const MyPosts = () => {
           </div>
         </div>
       <div>
-        <Post />
-        <Post />
-        <Post />
+        <Post message={'Hello, I\'m frontend developer!'}/>
+        <Post message={'I also familiar with backend'}/>
+        <Post message={'When I start work for you?'}/>
       </div>
     </div>
   )
