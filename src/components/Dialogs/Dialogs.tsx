@@ -4,16 +4,18 @@ import {Message} from './Messages/Message'
 import {DialogsType, MessagesType} from '../../App';
 
 type DialogsProps = {
-    dialogs: DialogsType
-    messages: MessagesType
+    state: {
+        dialogs: DialogsType
+        messages: MessagesType
+    }
 }
 
-export const Dialogs = ({dialogs, messages}: DialogsProps) => {
+export const Dialogs = ({state}: DialogsProps) => {
 
-    const dialogsComponents = dialogs.map((el) => (
+    const dialogsComponents = state.dialogs.map((el) => (
         <DialogItem name={el.name} id={el.id}/>
     ))
-    const messagesComponents = messages.map((el) => (
+    const messagesComponents = state.messages.map((el) => (
         <Message message={el.message}/>
     ))
     return (

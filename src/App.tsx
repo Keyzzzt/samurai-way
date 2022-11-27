@@ -5,18 +5,17 @@ import {Header} from './components/Header/Header'
 import {Navbar} from './components/Navbar/Navbar'
 import {Dialogs} from './components/Dialogs/Dialogs'
 import {BrowserRouter, Route} from 'react-router-dom'
+import {StateType} from './redux/state';
 
 export type PostsType = Array<{ id: number, message: string, likesCount: number }>
 export type DialogsType = Array<{ id: number, name: string }>
 export type MessagesType = Array<{ id: number, message: string }>
 
 type AppProps = {
-    posts: PostsType
-    dialogs: DialogsType
-    messages: MessagesType
+    state: StateType
 }
 
-function App({posts, dialogs, messages}: AppProps) {
+function App({state}: AppProps) {
     return (
         <BrowserRouter>
             <div className="app">
@@ -28,10 +27,10 @@ function App({posts, dialogs, messages}: AppProps) {
                 </div>
                 <div className="profile">
                     {/* <Route path='/dialogs' component={Dialogs} />
-        <Route path='/profile' component={Profile} /> */}
+                        <Route path='/profile' component={Profile} /> */}
 
-                    <Route path="/dialogs" render={() => <Dialogs dialogs={dialogs} messages={messages}/>}/>
-                    <Route path="/profile" render={() => <Profile posts={posts}/>}/>
+                    <Route path="/dialogs" render={() => <Dialogs state={state.dialogsPage}/>}/>
+                    <Route path="/profile" render={() => <Profile state={state.profilePage}/>}/>
                 </div>
             </div>
         </BrowserRouter>
