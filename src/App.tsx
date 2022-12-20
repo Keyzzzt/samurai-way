@@ -3,8 +3,8 @@ import {Profile} from './components/Profile/Profile'
 import {Header} from './components/Header/Header'
 import {NavBar} from './components/NavBar/NavBar'
 import {Dialogs} from './components/Dialogs/Dialogs'
-import {BrowserRouter, Route} from 'react-router-dom'
-import {RootStateType} from './redux/state';
+import {Route} from 'react-router-dom'
+import {addPost, RootStateType} from './redux/state';
 
 export type PostsType = Array<{ id: number, message: string, likesCount: number }>
 export type DialogsType = Array<{ id: number, name: string }>
@@ -28,7 +28,7 @@ function App({state}: AppProps) {
                         <Route path='/profile' component={Profile} /> */}
 
                 <Route path="/dialogs" render={() => <Dialogs state={state.dialogsPage}/>}/>
-                <Route path="/profile" render={() => <Profile state={state.profilePage}/>}/>
+                <Route path="/profile" render={() => <Profile posts={state.profilePage.posts} addPost={addPost}/>}/>
             </div>
         </div>
     )

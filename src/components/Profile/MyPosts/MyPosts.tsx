@@ -5,21 +5,23 @@ import React, {FC, useRef} from "react";
 
 type MyPostsProps = {
     posts: PostsType
+    addPost: (message: string) => void
+
 }
 
-export const MyPosts: FC<MyPostsProps> = ({posts}) => {
+export const MyPosts: FC<MyPostsProps> = (props) => {
     const newPostValue = useRef<HTMLTextAreaElement>(null)
-    const addPost = () => {
+    const addPostHandler = () => {
         // Три варианта записи, чтобы TS не ругался
-        // if (newPostValue.current) {
-        //     alert(newPostValue.current.value)
-        // }
+        if (newPostValue.current) {
+            props.addPost(newPostValue.current.value)
+        }
         // alert(newPostValue.current?.value)
-        alert(newPostValue.current && newPostValue.current.value)
+        // alert(newPostValue.current && newPostValue.current.value)
 
     }
 
-    const postComponents = posts.map(el => <Post message={el.message} likesCount={el.likesCount}/>);
+    const postComponents = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>);
     return (
         <div className={s.container}>
             <div className={s.addPost}>
@@ -27,7 +29,7 @@ export const MyPosts: FC<MyPostsProps> = ({posts}) => {
                     <textarea ref={newPostValue}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={addPostHandler}>Add post</button>
                 </div>
             </div>
             <div>
