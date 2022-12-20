@@ -1,3 +1,4 @@
+import React, {FC} from "react";
 import { NavLink } from "react-router-dom"
 import s from "./../Dialogs.module.css"
 
@@ -6,8 +7,7 @@ type DialogItemProps = {
   id: number
 }
 
-
-export const DialogItem = ({ name, id }: DialogItemProps) => {
+export const DialogItem: FC<DialogItemProps> = ({ name, id }) => {
   const path = "/dialogs/" + id
   return (
     <div className={s.dialog}>

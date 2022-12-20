@@ -1,10 +1,11 @@
 import s from "./Post.module.css"
+import {FC} from "react";
 
-type PostPropsType = {
+type PostProps = {
   message: string
   likesCount: number
 }
-export const Post = ({message, likesCount}: PostPropsType) => {
+export const Post: FC<PostProps> = ({message, likesCount}) => {
   return (
     <div className={s.container}>
       <div className={s.avatar}>

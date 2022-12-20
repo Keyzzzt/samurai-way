@@ -2,6 +2,7 @@ import s from './Dialogs.module.css'
 import {DialogItem} from './DialogsItem/DialogsItem'
 import {Message} from './Messages/Message'
 import {DialogsType, MessagesType} from '../../App';
+import React, {FC} from "react";
 
 type DialogsProps = {
     state: {
@@ -10,7 +11,7 @@ type DialogsProps = {
     }
 }
 
-export const Dialogs = ({state}: DialogsProps) => {
+export const Dialogs: FC<DialogsProps> = ({state}) => {
 
     const dialogsComponents = state.dialogs.map((el) => (
         <DialogItem name={el.name} id={el.id}/>
@@ -20,7 +21,9 @@ export const Dialogs = ({state}: DialogsProps) => {
     ))
     return (
         <div className={s.dialogs}>
-            <div className={s.dialogsItems}>{dialogsComponents}</div>
+            <div className={s.dialogsItems}>
+                {dialogsComponents}
+            </div>
             <div className={s.messages}>{messagesComponents}</div>
         </div>
     )

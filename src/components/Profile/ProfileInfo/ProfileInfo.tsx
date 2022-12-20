@@ -1,5 +1,10 @@
 import s from "./ProfileInfo.module.css"
-export const ProfileInfo = () => {
+import {FC} from "react";
+
+type ProfileInfoProps = {
+
+}
+export const ProfileInfo :FC<ProfileInfoProps> = () => {
   return (
     <div>
       <div className={s.profileImage}></div>

@@ -1,7 +1,10 @@
 import {NavLink} from 'react-router-dom';
 import s from './Navbar.module.css'
+import {FC} from "react";
 
-export const Navbar = () => {
+type NavBarProps = {}
+
+export const NavBar: FC<NavBarProps> = () => {
     return (
         <nav className={s.nav}>
             <div className={s.item}>

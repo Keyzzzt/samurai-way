@@ -2,6 +2,7 @@ import {MyPosts} from './MyPosts/MyPosts'
 import s from './Profile.module.css'
 import {ProfileInfo} from './ProfileInfo/ProfileInfo'
 import {PostsType} from '../../App';
+import {FC} from "react";
 
 type ProfileProps = {
     state: {
@@ -9,7 +10,7 @@ type ProfileProps = {
     }
 }
 
-export const Profile = ({state}: ProfileProps) => {
+export const Profile: FC<ProfileProps> = ({state}) => {
     return (
         <div className={s.profile}>
             <ProfileInfo/>

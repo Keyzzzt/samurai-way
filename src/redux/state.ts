@@ -1,6 +1,29 @@
-export type StateType = typeof state
+type DialogsPageType = {
+    messages: Array<{
+        id: number
+        message: string
+    }>
+    dialogs: Array<{
+        id: number
+        name: string
+    }>
+}
+type ProfilePageType = {
+    posts: Array<{
+        id: number
+        message: string
+        likesCount: number
+    }>
+}
+type SideBarPageType = {}
 
-export const state = {
+export type RootStateType = {
+    dialogsPage: DialogsPageType
+    profilePage: ProfilePageType
+    sidebar: SideBarPageType
+}
+
+export const state: RootStateType = {
     dialogsPage: {
         messages: [
             {id: 1, message: 'Hello'},
@@ -19,5 +42,6 @@ export const state = {
             {id: 2, message: 'I also familiar with backend!', likesCount: 44},
             {id: 3, message: 'When I start work for you?', likesCount: 444},
         ],
-    }
+    },
+    sidebar: {}
 }
