@@ -1,3 +1,5 @@
+import {reRender} from "../render";
+
 type PostType = {
     id: number
     message: string
@@ -55,5 +57,5 @@ export const addPost = (message: string): void => {
         likesCount: 0
     }
     state.profilePage.posts.push(newPost)
-    console.log(state.profilePage.posts)
+    reRender(state)
 }

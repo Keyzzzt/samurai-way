@@ -15,6 +15,7 @@ export const MyPosts: FC<MyPostsProps> = (props) => {
         // Три варианта записи, чтобы TS не ругался
         if (newPostValue.current) {
             props.addPost(newPostValue.current.value)
+            newPostValue.current.value = ''
         }
         // alert(newPostValue.current?.value)
         // alert(newPostValue.current && newPostValue.current.value)
