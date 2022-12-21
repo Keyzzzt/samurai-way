@@ -5,16 +5,20 @@ import {PostsType} from '../../App';
 import React, {FC} from "react";
 
 type ProfileProps = {
-    posts: PostsType
-    addPost: (message: string) => void
+    state: {
+        posts: PostsType
+        newPostText: string
+    }
+    addPost: () => void
+    newPostTextHandler: (text :string) => void
 
 }
 
-export const Profile: FC<ProfileProps> = ({posts, addPost}) => {
+export const Profile: FC<ProfileProps> = ({state, addPost, newPostTextHandler}) => {
     return (
         <div className={s.profile}>
             <ProfileInfo/>
-            <MyPosts posts={posts} addPost={addPost}/>
+            <MyPosts posts={state.posts} addPost={addPost} newPostText={state.newPostText} newPostTextHandler={newPostTextHandler}/>
         </div>
     )
 }

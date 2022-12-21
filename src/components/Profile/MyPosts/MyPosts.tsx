@@ -5,32 +5,34 @@ import React, {FC, useRef} from "react";
 
 type MyPostsProps = {
     posts: PostsType
-    addPost: (message: string) => void
+    newPostText: string
+    addPost: () => void
+    newPostTextHandler: (text: string) => void
 
 }
 
 export const MyPosts: FC<MyPostsProps> = (props) => {
     const newPostValue = useRef<HTMLTextAreaElement>(null)
-    const addPostHandler = () => {
-        // Три варианта записи, чтобы TS не ругался
-        if (newPostValue.current) {
-            props.addPost(newPostValue.current.value)
-            newPostValue.current.value = ''
-        }
-        // alert(newPostValue.current?.value)
-        // alert(newPostValue.current && newPostValue.current.value)
+    // const addPostHandler = () => {
+    //     // Три варианта записи, чтобы TS не ругался
+    //     if (newPostValue.current) {
+    //         props.addPost(newPostValue.current.value)
+    //         newPostValue.current.value = ''
+    //     }
+    //     // alert(newPostValue.current?.value)
+    //     // alert(newPostValue.current && newPostValue.current.value)
 
-    }
+    // }
 
     const postComponents = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>);
     return (
         <div className={s.container}>
             <div className={s.addPost}>
                 <div>
-                    <textarea ref={newPostValue}/>
+                    <textarea onChange={(e) => props.newPostTextHandler(e.currentTarget.value)} ref={newPostValue} value={props.newPostText}/>
                 </div>
                 <div>
-                    <button onClick={addPostHandler}>Add post</button>
+                    <button onClick={props.addPost}>Add post</button>
                 </div>
             </div>
             <div>

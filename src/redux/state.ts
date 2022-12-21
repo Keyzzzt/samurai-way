@@ -18,6 +18,7 @@ type DialogsPageType = {
 }
 type ProfilePageType = {
     posts: PostType[]
+    newPostText: string
 }
 type SideBarPageType = {}
 
@@ -46,16 +47,22 @@ export const state: RootStateType = {
             {id: 2, message: 'I also familiar with backend!', likesCount: 44},
             {id: 3, message: 'When I start work for you?', likesCount: 444},
         ],
+        newPostText: ''
     },
     sidebar: {}
 }
 
-export const addPost = (message: string): void => {
+export const addPost = (): void => {
     const newPost: PostType = {
         id: 4,
-        message,
+        message: state.profilePage.newPostText,
         likesCount: 0
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    reRender(state)
+}
+export const newPostTextHandler = (text: string) => {
+    state.profilePage.newPostText = text
     reRender(state)
 }
