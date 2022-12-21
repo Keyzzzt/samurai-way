@@ -1,4 +1,3 @@
-import {reRender} from "../render";
 
 type PostType = {
     id: number
@@ -26,6 +25,11 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
     sidebar: SideBarPageType
+}
+
+let reRender = () => {
+    console.log('State changed');
+    
 }
 
 export const state: RootStateType = {
@@ -60,9 +64,12 @@ export const addPost = (): void => {
     }
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-    reRender(state)
+    reRender()
 }
 export const newPostTextHandler = (text: string) => {
     state.profilePage.newPostText = text
-    reRender(state)
+    reRender()
+}
+export const subscribe = (observerFn: () => void) => {
+    reRender = observerFn
 }
