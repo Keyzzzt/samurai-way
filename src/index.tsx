@@ -8,7 +8,7 @@ import {StateType, store} from "./redux/state";
 let reRender = (state: StateType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} addPost={store.addPost.bind(store)} newPostTextHandler={store.newPostTextHandler.bind(store)}/>
+            <App state={state} dispatch={store.dispatch.bind(store)}/>
         </BrowserRouter>,
         document.getElementById('root')
     );
