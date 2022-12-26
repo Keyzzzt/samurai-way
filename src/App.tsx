@@ -24,7 +24,7 @@ function App({state, dispatch}: AppProps) {
                 <NavBar/>
             </div>
             <div className="profile">
-                <Route path="/dialogs" render={() => <Dialogs state={state.dialogsPage}/>}/>
+                <Route path="/dialogs" render={() => <Dialogs state={state.dialogsPage} dispatch={dispatch}/>}/>
                 <Route path="/profile" render={() => <Profile state={state.profilePage} dispatch={dispatch}/>}/>
             </div>
         </div>

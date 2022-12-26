@@ -3,15 +3,17 @@ type PostType = {
   message: string
   likesCount: number
 }
-type DialogsPageType = {
-  messages: Array<{
-    id: number
-    message: string
-  }>
+type MessageType = {
+  id: number
+  message: string
+}
+export type DialogsPageType = {
+  messages: MessageType[]
   dialogs: Array<{
     id: number
     name: string
   }>
+  newMessageText: string
 }
 type ProfilePageType = {
   posts: PostType[]
@@ -35,8 +37,10 @@ export type ActionType = {
   payload?: any
 }
 
-const ADD_POST = 'ADD_POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
+const ADD_POST = "ADD_POST"
+const ADD_MESSAGE = "ADD_MESSAGE"
+const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT"
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT"
 
 export const store: RootStateType = {
   _state: {
@@ -51,6 +55,7 @@ export const store: RootStateType = {
         { id: 2, name: "Igor" },
         { id: 3, name: "Kote" },
       ],
+      newMessageText: "",
     },
     profilePage: {
       posts: [
@@ -74,11 +79,24 @@ export const store: RootStateType = {
   },
   dispatch(action) {
     switch (action.type) {
-      case "UPDATE_NEW_POST_TEXT":
+      case UPDATE_NEW_POST_TEXT:
         this._state.profilePage.newPostText = action.payload
         this._callSubscriber(this._state)
         break
-      case "ADD_POST":
+      case UPDATE_NEW_MESSAGE_TEXT:
+        this._state.dialogsPage.newMessageText = action.payload
+        this._callSubscriber(this._state)
+        break
+      case ADD_MESSAGE:
+        const newMessage: MessageType = {
+          id: 4,
+          message: this._state.dialogsPage.newMessageText,
+        }
+        this._state.dialogsPage.messages.push(newMessage)
+        this._state.dialogsPage.newMessageText = ""
+        this._callSubscriber(this._state)
+        break
+      case ADD_POST:
         const newPost: PostType = {
           id: 4,
           message: this._state.profilePage.newPostText,
@@ -87,10 +105,18 @@ export const store: RootStateType = {
         this._state.profilePage.posts.push(newPost)
         this._state.profilePage.newPostText = ""
         this._callSubscriber(this._state)
+        break
     }
   },
 }
 
-export const addPostAC = () => ({type: ADD_POST})
-export const updateNewPostTextAC = (text: string) => ({type: UPDATE_NEW_POST_TEXT, payload: text})
-
+export const addPostAC = () => ({ type: ADD_POST })
+export const addMessageAC = () => ({ type: ADD_MESSAGE })
+export const updateNewPostTextAC = (text: string) => ({
+  type: UPDATE_NEW_POST_TEXT,
+  payload: text,
+})
+export const updateNewMessageTextAC = (text: string) => ({
+  type: UPDATE_NEW_MESSAGE_TEXT,
+  payload: text,
+})
