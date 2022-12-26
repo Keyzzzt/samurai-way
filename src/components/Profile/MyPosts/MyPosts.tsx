@@ -2,7 +2,7 @@ import s from './MyPosts.module.css'
 import {Post} from './Post/Post'
 import {PostsType} from '../../../App';
 import React, {FC, ChangeEvent, useRef} from "react";
-import { ActionType } from '../../../redux/state';
+import { ActionType, addPostAC, updateNewPostTextAC } from '../../../redux/state';
 
 type MyPostsProps = {
     posts: PostsType
@@ -12,14 +12,15 @@ type MyPostsProps = {
 
 }
 
+
 export const MyPosts: FC<MyPostsProps> = (props) => {
     const newPostValue = useRef<HTMLTextAreaElement>(null)
     const postComponents = props.posts.map(el => <Post key={el.id} message={el.message} likesCount={el.likesCount}/>);
     const updateNewPostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: "UPDATE_NEW_POST_TEXT", payload: e.currentTarget.value})
+        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
     }
     const addPostHandler = () => {
-        props.dispatch({type: 'ADD_POST'})
+        props.dispatch(addPostAC())
     }
     return (
         <div className={s.container}>

@@ -3,7 +3,6 @@ type PostType = {
   message: string
   likesCount: number
 }
-
 type DialogsPageType = {
   messages: Array<{
     id: number
@@ -20,7 +19,6 @@ type ProfilePageType = {
 }
 type SideBarPageType = {}
 export type StateType = typeof store._state
-
 export type RootStateType = {
   _state: {
     dialogsPage: DialogsPageType
@@ -36,6 +34,9 @@ export type ActionType = {
   type: string
   payload?: any
 }
+
+const ADD_POST = 'ADD_POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 
 export const store: RootStateType = {
   _state: {
@@ -89,3 +90,7 @@ export const store: RootStateType = {
     }
   },
 }
+
+export const addPostAC = () => ({type: ADD_POST})
+export const updateNewPostTextAC = (text: string) => ({type: UPDATE_NEW_POST_TEXT, payload: text})
+
