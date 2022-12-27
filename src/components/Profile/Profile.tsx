@@ -1,13 +1,12 @@
 import {MyPosts} from './MyPosts/MyPosts'
 import s from './Profile.module.css'
 import {ProfileInfo} from './ProfileInfo/ProfileInfo'
-import {PostsType} from '../../App';
 import React, {FC} from "react";
-import { ActionType } from '../../redux/state';
+import { ActionType, PostType } from '../../redux/state';
 
 type ProfileProps = {
     state: {
-        posts: PostsType
+        posts: PostType[]
         newPostText: string
     }
     dispatch: (action: ActionType) => void

@@ -1,11 +1,11 @@
 import s from './MyPosts.module.css'
 import {Post} from './Post/Post'
-import {PostsType} from '../../../App';
 import React, {FC, ChangeEvent, useRef} from "react";
-import { ActionType, addPostAC, updateNewPostTextAC } from '../../../redux/state';
+import { ActionType, PostType } from '../../../redux/state';
+import { addPostAC, updateNewPostTextAC } from '../../../redux/reducers/profileReducer';
 
 type MyPostsProps = {
-    posts: PostsType
+    posts: PostType[]
     newPostText: string
     dispatch: (action: ActionType) => void
 
