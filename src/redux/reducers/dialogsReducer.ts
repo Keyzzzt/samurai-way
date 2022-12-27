@@ -8,14 +8,14 @@ type InitialStateType = typeof initialState
 
 const initialState = {
   messages: [
-    { id: 1, message: "Hello" },
-    { id: 2, message: "Hola" },
-    { id: 3, message: "Hej" },
+    { id: '1', message: "Hello" },
+    { id: '2', message: "Hola" },
+    { id: '3', message: "Hej" },
   ],
   dialogs: [
-    { id: 1, name: "Mark" },
-    { id: 2, name: "Igor" },
-    { id: 3, name: "Kote" },
+    { id: '1', name: "Mark" },
+    { id: '2', name: "Igor" },
+    { id: '3', name: "Kote" },
   ],
   newMessageText: "",
 }
@@ -29,7 +29,7 @@ export const dialogsReducer = (
   switch (action.type) {
     case ADD_MESSAGE:
       const newMessage = {
-        id: 4,
+        id: '4',
         message: state.newMessageText,
       }
       return {...state, messages: [newMessage, ...state.messages], newMessageText: ''}

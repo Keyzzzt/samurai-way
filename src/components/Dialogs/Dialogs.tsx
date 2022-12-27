@@ -1,17 +1,18 @@
 import s from "./Dialogs.module.css"
 import { DialogItem } from "./DialogsItem/DialogsItem"
 import { Message } from "./Messages/Message"
-import React, { FC, ChangeEvent } from "react"
-import {
-  addMessageAC,
-  updateNewMessageTextAC,
-} from "../../redux/reducers/dialogsReducer"
-import { useDispatch } from "react-redux"
-import { useTypedSelector } from "../../types"
+import { FC } from "react"
 
-export const Dialogs: FC = () => {
-  const dispatch = useDispatch()
-  const {dialogs, messages, newMessageText} = useTypedSelector(state => state.dialogsPage)
+
+type DialogsProps = {
+  dialogs: Array<{id: string, name: string}>
+  messages: Array<{id: string, message: string}>
+  newMessageText: string
+  changeMessageText: (text: string) => void
+  addMessage: () => void
+}
+
+export const Dialogs: FC<DialogsProps> = ({dialogs, messages, newMessageText, changeMessageText, addMessage}) => {
 
   const dialogsElements = dialogs.map((el) => (
     <DialogItem name={el.name} id={el.id} />
@@ -19,12 +20,7 @@ export const Dialogs: FC = () => {
   const messagesElements = messages.map((el) => (
     <Message message={el.message} />
   ))
-  const onClickHandler = () => {
-    dispatch(addMessageAC())
-  }
-  const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(updateNewMessageTextAC(e.currentTarget.value))
-  }
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>{dialogsElements}</div>
@@ -32,12 +28,12 @@ export const Dialogs: FC = () => {
       <div>
         <div>
           <textarea
-            onChange={onChangeHandler}
+            onChange={(e) => changeMessageText(e.currentTarget.value)}
             value={newMessageText}
           ></textarea>
         </div>
         <div>
-          <button onClick={onClickHandler}>Add message</button>
+          <button onClick={addMessage}>Add message</button>
         </div>
       </div>
     </div>

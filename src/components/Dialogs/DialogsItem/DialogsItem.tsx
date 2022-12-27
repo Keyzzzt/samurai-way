@@ -4,7 +4,7 @@ import s from "./../Dialogs.module.css"
 
 type DialogItemProps = {
   name: string
-  id: number
+  id: string
 }
 
 export const DialogItem: FC<DialogItemProps> = ({ name, id }) => {

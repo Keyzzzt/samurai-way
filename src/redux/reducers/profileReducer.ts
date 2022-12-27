@@ -21,7 +21,7 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
               message: state.newPostText,
               likesCount: 0,
             }
-            return {...state, posts: [newPost, ...state.posts]}
+            return {...state, posts: [newPost, ...state.posts], newPostText: ''}
             case UPDATE_NEW_POST_TEXT:
               return {...state, newPostText: action.payload}
           default: 
