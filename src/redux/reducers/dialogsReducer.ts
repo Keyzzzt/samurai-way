@@ -1,24 +1,41 @@
-import { UPDATE_NEW_MESSAGE_TEXT } from './../actionTypes';
-import { DialogsPageType, MessageType } from "./../state"
-import { ADD_MESSAGE } from "../actionTypes"
-import { ActionType } from "../state"
+import { UPDATE_NEW_MESSAGE_TEXT } from '../constants';
+import { ADD_MESSAGE } from "../constants"
+import { ActionType } from '../../types';
+
+
+type InitialStateType = typeof initialState
+
+
+const initialState = {
+  messages: [
+    { id: 1, message: "Hello" },
+    { id: 2, message: "Hola" },
+    { id: 3, message: "Hej" },
+  ],
+  dialogs: [
+    { id: 1, name: "Mark" },
+    { id: 2, name: "Igor" },
+    { id: 3, name: "Kote" },
+  ],
+  newMessageText: "",
+}
+
+
 
 export const dialogsReducer = (
-  state: DialogsPageType,
+  state = initialState,
   action: ActionType
-): DialogsPageType => {
+): InitialStateType => {
   switch (action.type) {
     case ADD_MESSAGE:
-      const newMessage: MessageType = {
+      const newMessage = {
         id: 4,
         message: state.newMessageText,
       }
-      state.messages.push(newMessage)
-      state.newMessageText = ""
-      return state
+      return {...state, messages: [newMessage, ...state.messages], newMessageText: ''}
     case UPDATE_NEW_MESSAGE_TEXT:
-      state.newMessageText = action.payload
-      return state
+      debugger
+      return {...state, newMessageText: action.payload}
     default:
       return state
   }

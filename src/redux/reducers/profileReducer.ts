@@ -1,22 +1,29 @@
-import { UPDATE_NEW_POST_TEXT } from './../actionTypes';
-import { ProfilePageType } from '../state';
-import { ADD_POST } from '../actionTypes';
-import { ActionType, PostType } from '../state';
+import { UPDATE_NEW_POST_TEXT } from '../constants';
+import { ADD_POST } from '../constants';
+import { ActionType } from '../../types';
 
-export const profileReducer = (state: ProfilePageType, action: ActionType): ProfilePageType => {
+type InitialStateType = typeof initialState
+
+const initialState = {
+  posts: [
+    { id: 1, message: "Hello, I'm frontend developer!", likesCount: 4 },
+    { id: 2, message: "I also familiar with backend!", likesCount: 44 },
+    { id: 3, message: "When I start work for you?", likesCount: 444 },
+  ],
+  newPostText: "",
+}
+
+export const profileReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch(action.type) {
         case ADD_POST:
-            const newPost: PostType = {
+            const newPost = {
               id: 4,
               message: state.newPostText,
               likesCount: 0,
             }
-            state.posts.push(newPost)
-            state.newPostText = ""
-            return state
+            return {...state, posts: [newPost, ...state.posts]}
             case UPDATE_NEW_POST_TEXT:
-              state.newPostText = action.payload
-              return state
+              return {...state, newPostText: action.payload}
           default: 
             return state
     }
