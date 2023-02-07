@@ -19,4 +19,3 @@ export const store = createStore(rootReducer, initialState, composeEnhancers(app
 
 export type StateType = ReturnType<typeof rootReducer>
 export type AppStoreType = ReturnType<typeof createStore>
-

@@ -4,27 +4,25 @@ import {
   addPostAC,
   updateNewPostTextAC,
 } from "../../../redux/reducers/profileReducer"
-import { useDispatch } from "react-redux"
+import { connect, useDispatch } from "react-redux"
 import { useTypedSelector } from "../../../types"
 import { MyPosts } from "./MyPosts"
+import { StateType } from "../../../redux/store"
 
-export const MyPostsContainer = () => {
-  const dispatch = useDispatch()
-  const { posts, newPostText } = useTypedSelector((state) => state.profilePage)
-
-  const updateNewPostText = (text: string) => {
-    dispatch(updateNewPostTextAC(text))
+const ms = (state: StateType) => {
+  return {
+    profilePage: state.profilePage,
   }
-  const addPost = () => {
-    dispatch(addPostAC())
-  }
-
-  return (
-    <MyPosts
-      posts={posts}
-      newPostText={newPostText}
-      updateNewPostText={updateNewPostText}
-      addPost={addPost}
-    />
-  )
 }
+const md = (dispatch: Function) => {
+  return {
+    updateNewPostText(text: string) {
+      dispatch(updateNewPostTextAC(text))
+    },
+    addPost() {
+      dispatch(addPostAC())
+    },
+  }
+}
+
+export const MyPostsContainer = connect(ms, md)(MyPosts)

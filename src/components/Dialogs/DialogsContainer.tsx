@@ -1,31 +1,25 @@
-import { FC, ChangeEvent } from "react"
+
 import {
   addMessageAC,
   updateNewMessageTextAC,
 } from "../../redux/reducers/dialogsReducer"
-import { useDispatch } from "react-redux"
-import { useTypedSelector } from "../../types"
+import { connect } from "react-redux"
 import { Dialogs } from "./Dialogs"
+import { StateType } from "../../redux/store"
 
-export const DialogsContainer: FC = () => {
-  const dispatch = useDispatch()
-  const { dialogs, messages, newMessageText } = useTypedSelector(
-    (state) => state.dialogsPage
-  )
-
-  const addMessage = () => {
-    dispatch(addMessageAC())
+const ms = (state: StateType) => {
+  return {
+    dialogsPage: state.dialogsPage,
   }
-  const changeMessageText = (text: string) => {
-    dispatch(updateNewMessageTextAC(text))
-  }
-  return (
-    <Dialogs
-      dialogs={dialogs}
-      messages={messages}
-      newMessageText={newMessageText}
-      changeMessageText={changeMessageText}
-      addMessage={addMessage}
-    />
-  )
 }
+const md = (dispatch: Function) => {
+  return {
+    addMessage: () => {
+      dispatch(addMessageAC())
+    },
+    changeMessageText: (text: string) => {
+      dispatch(updateNewMessageTextAC(text))
+    }
+  }
+}
+export const DialogsContainer = connect(ms, md)(Dialogs)

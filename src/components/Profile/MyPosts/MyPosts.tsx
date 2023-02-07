@@ -2,17 +2,20 @@ import s from "./MyPosts.module.css"
 import { Post } from "./Post/Post"
 import {useRef } from "react"
 
-type MyPostsProps = {
+type ProfilePage = {
   posts: Array<{id: number; message: string; likesCount: number}>
   newPostText: string
+}
+type MyPostsProps = {
+  profilePage: ProfilePage
   updateNewPostText: (text: string) => void
   addPost: () => void
 }
 
 
-export const MyPosts = ({posts, newPostText, updateNewPostText, addPost}: MyPostsProps) => {
+export const MyPosts = ({profilePage, updateNewPostText, addPost}: MyPostsProps) => {
   const newPostValue = useRef<HTMLTextAreaElement>(null)
-  const postComponents = posts.map((el) => (
+  const postComponents = profilePage.posts.map((el) => (
     <Post key={el.id} message={el.message} likesCount={el.likesCount} />
   ))
 
@@ -23,7 +26,7 @@ export const MyPosts = ({posts, newPostText, updateNewPostText, addPost}: MyPost
           <textarea
             onChange={(e) => updateNewPostText(e.currentTarget.value)}
             ref={newPostValue}
-            value={newPostText}
+            value={profilePage.newPostText}
           />
         </div>
         <div>

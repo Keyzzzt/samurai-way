@@ -3,21 +3,23 @@ import { DialogItem } from "./DialogsItem/DialogsItem"
 import { Message } from "./Messages/Message"
 import { FC } from "react"
 
-
-type DialogsProps = {
+type DialogsPage = {
   dialogs: Array<{id: string, name: string}>
   messages: Array<{id: string, message: string}>
   newMessageText: string
+}
+type DialogsProps = {
+  dialogsPage: DialogsPage
   changeMessageText: (text: string) => void
   addMessage: () => void
 }
 
-export const Dialogs: FC<DialogsProps> = ({dialogs, messages, newMessageText, changeMessageText, addMessage}) => {
+export const Dialogs: FC<DialogsProps> = ({dialogsPage, changeMessageText, addMessage}) => {
 
-  const dialogsElements = dialogs.map((el) => (
+  const dialogsElements = dialogsPage.dialogs.map((el) => (
     <DialogItem name={el.name} id={el.id} />
   ))
-  const messagesElements = messages.map((el) => (
+  const messagesElements = dialogsPage.messages.map((el) => (
     <Message message={el.message} />
   ))
 
@@ -29,7 +31,7 @@ export const Dialogs: FC<DialogsProps> = ({dialogs, messages, newMessageText, ch
         <div>
           <textarea
             onChange={(e) => changeMessageText(e.currentTarget.value)}
-            value={newMessageText}
+            value={dialogsPage.newMessageText}
           ></textarea>
         </div>
         <div>
