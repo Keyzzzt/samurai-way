@@ -1,19 +1,12 @@
 import s from "./MyPosts.module.css"
 import { Post } from "./Post/Post"
 import {useRef } from "react"
-
-type ProfilePage = {
-  posts: Array<{id: number; message: string; likesCount: number}>
-  newPostText: string
-}
-type MyPostsProps = {
-  profilePage: ProfilePage
-  updateNewPostText: (text: string) => void
-  addPost: () => void
-}
+import { ProfilePageProps } from "./MyPostsContainer"
 
 
-export const MyPosts = ({profilePage, updateNewPostText, addPost}: MyPostsProps) => {
+
+
+export const MyPosts = ({profilePage, updateNewPostText, addPost}: ProfilePageProps) => {
   const newPostValue = useRef<HTMLTextAreaElement>(null)
   const postComponents = profilePage.posts.map((el) => (
     <Post key={el.id} message={el.message} likesCount={el.likesCount} />

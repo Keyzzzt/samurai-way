@@ -2,19 +2,10 @@ import s from "./Dialogs.module.css"
 import { DialogItem } from "./DialogsItem/DialogsItem"
 import { Message } from "./Messages/Message"
 import { FC } from "react"
+import { DialogsPageProps } from "./DialogsContainer"
 
-type DialogsPage = {
-  dialogs: Array<{id: string, name: string}>
-  messages: Array<{id: string, message: string}>
-  newMessageText: string
-}
-type DialogsProps = {
-  dialogsPage: DialogsPage
-  changeMessageText: (text: string) => void
-  addMessage: () => void
-}
 
-export const Dialogs: FC<DialogsProps> = ({dialogsPage, changeMessageText, addMessage}) => {
+export const Dialogs: FC<DialogsPageProps> = ({dialogsPage, changeMessageText, addMessage}) => {
 
   const dialogsElements = dialogsPage.dialogs.map((el) => (
     <DialogItem name={el.name} id={el.id} />

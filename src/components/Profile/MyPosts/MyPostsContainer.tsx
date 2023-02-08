@@ -1,26 +1,31 @@
 import s from "./MyPosts.module.css"
-import { Post } from "./Post/Post"
-import {
-  addPostAC,
-  updateNewPostTextAC,
-} from "../../../redux/reducers/profileReducer"
-import { connect, useDispatch } from "react-redux"
-import { useTypedSelector } from "../../../types"
+import {actions, ProfilePageType} from "../../../redux/reducers/profileReducer"
+import { connect } from "react-redux"
 import { MyPosts } from "./MyPosts"
 import { StateType } from "../../../redux/store"
+import { Dispatch } from "redux"
 
-const ms = (state: StateType) => {
+type MSType = {
+  profilePage: ProfilePageType
+}
+type MDType = {
+  updateNewPostText: (text: string) => void
+  addPost: () => void
+}
+export type ProfilePageProps = MSType & MDType
+
+const ms = (state: StateType): MSType => {
   return {
     profilePage: state.profilePage,
   }
 }
-const md = (dispatch: Function) => {
+const md = (dispatch: Dispatch): MDType => {
   return {
     updateNewPostText(text: string) {
-      dispatch(updateNewPostTextAC(text))
+      dispatch(actions.updateNewPostTextAC(text))
     },
     addPost() {
-      dispatch(addPostAC())
+      dispatch(actions.addPostAC())
     },
   }
 }

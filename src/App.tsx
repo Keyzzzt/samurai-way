@@ -5,6 +5,7 @@ import { NavBar } from "./components/NavBar/NavBar"
 import { Route } from "react-router-dom"
 import { StateType } from "./redux/store"
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer"
+import { UsersContainer } from "./components/Users/Users"
 
 type AppProps = {
   state: StateType
@@ -27,6 +28,10 @@ function App({ state }: AppProps) {
         <Route
           path="/profile"
           render={() => <Profile />}
+        />
+                <Route
+          path="/users"
+          render={() => <UsersContainer />}
         />
       </div>
     </div>

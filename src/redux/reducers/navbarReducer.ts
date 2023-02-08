@@ -1,17 +1,21 @@
-import { ADD_MESSAGE } from "../constants"
-import { ActionType } from "../../types"
+import { BaseThunkType, InferActionTypes } from './../../types';
 
-type InitialStateType = typeof initialState
+type ThunkType = BaseThunkType<ActionType>
+type ActionType = InferActionTypes<typeof actions>
+export type NavbarType = typeof initialState
 const initialState = {}
 
 export const navbarReducer = (
   state = initialState,
   action: ActionType
-): InitialStateType => {
+): NavbarType => {
   switch (action.type) {
-    case ADD_MESSAGE:
-      return state
+
     default:
       return state
   }
+}
+
+export const actions = {
+    add: () => ({type: 'ADD' as const})
 }

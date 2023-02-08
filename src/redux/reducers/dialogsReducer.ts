@@ -1,9 +1,11 @@
-import { UPDATE_NEW_MESSAGE_TEXT } from '../constants';
-import { ADD_MESSAGE } from "../constants"
-import { ActionType } from '../../types';
+import { BaseThunkType, InferActionTypes } from '../../types';
 
 
-type InitialStateType = typeof initialState
+type ThunkType = BaseThunkType<ActionType>
+type ActionType = InferActionTypes<typeof actions>
+export type DialogsPageType = typeof initialState
+
+
 
 
 const initialState = {
@@ -22,18 +24,19 @@ const initialState = {
 
 
 
+
 export const dialogsReducer = (
   state = initialState,
   action: ActionType
-): InitialStateType => {
+): DialogsPageType => {
   switch (action.type) {
-    case ADD_MESSAGE:
+    case 'ADD_MESSAGE':
       const newMessage = {
         id: '4',
         message: state.newMessageText,
       }
       return {...state, messages: [newMessage, ...state.messages], newMessageText: ''}
-    case UPDATE_NEW_MESSAGE_TEXT:
+    case 'UPDATE_NEW_MESSAGE_TEXT':
       debugger
       return {...state, newMessageText: action.payload}
     default:
@@ -41,8 +44,10 @@ export const dialogsReducer = (
   }
 }
 
-export const addMessageAC = () => ({ type: ADD_MESSAGE })
-export const updateNewMessageTextAC = (text: string) => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  payload: text,
-})
+export const actions = {
+  addMessageAC: () => ({ type: 'ADD_MESSAGE' as const }),
+  updateNewMessageTextAC: (text: string) => ({
+    type: 'UPDATE_NEW_MESSAGE_TEXT' as const,
+    payload: text,
+  })
+}

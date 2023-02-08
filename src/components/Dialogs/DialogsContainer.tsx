@@ -1,24 +1,33 @@
 
-import {
-  addMessageAC,
-  updateNewMessageTextAC,
-} from "../../redux/reducers/dialogsReducer"
+import {actions, DialogsPageType} from "../../redux/reducers/dialogsReducer"
 import { connect } from "react-redux"
 import { Dialogs } from "./Dialogs"
 import { StateType } from "../../redux/store"
+import { Dispatch } from "redux"
 
-const ms = (state: StateType) => {
+
+type MSType = {
+  dialogsPage: DialogsPageType
+}
+type MDType = {
+  addMessage: () => void
+  changeMessageText: (text: string) => void
+}
+
+export type DialogsPageProps = MSType & MDType
+
+const ms = (state: StateType): MSType => {
   return {
     dialogsPage: state.dialogsPage,
   }
 }
-const md = (dispatch: Function) => {
+const md = (dispatch: Dispatch): MDType => {
   return {
     addMessage: () => {
-      dispatch(addMessageAC())
+      dispatch(actions.addMessageAC())
     },
     changeMessageText: (text: string) => {
-      dispatch(updateNewMessageTextAC(text))
+      dispatch(actions.updateNewMessageTextAC(text))
     }
   }
 }
