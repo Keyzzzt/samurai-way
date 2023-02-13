@@ -5,7 +5,9 @@ import { NavBar } from "./components/NavBar/NavBar"
 import { Route } from "react-router-dom"
 import { StateType } from "./redux/store"
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer"
-import { UsersContainer } from "./components/Users/Users"
+import { UsersContainer } from "./components/Users/UsersAPI"
+import { ProfileContainer } from "./components/Profile/ProfileContainer"
+import { HeaderContainer } from "./components/Header/HeaderContainer"
 
 type AppProps = {
   state: StateType
@@ -15,7 +17,7 @@ function App({ state }: AppProps) {
   return (
     <div className="app">
       <div className="header">
-        <Header />
+        <HeaderContainer />
       </div>
       <div className="navbar">
         <NavBar />
@@ -26,8 +28,8 @@ function App({ state }: AppProps) {
           render={() => <DialogsContainer />}
         />
         <Route
-          path="/profile"
-          render={() => <Profile />}
+          path="/profile/:userId"
+          render={() => <ProfileContainer />}
         />
                 <Route
           path="/users"

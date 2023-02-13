@@ -1,0 +1,15 @@
+.activePage {
+    font-weight: 900;
+    color: red;
+}
+
+.pageNumbers span{
+    min-height: 10px;
+    min-width: 10px;
+    border-radius: 5px;
+    /* padding: 5px; */
+    border: 1px solid #000;
+    cursor: pointer;
+    background: #09c;
+    margin-right: 2px;
+}

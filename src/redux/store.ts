@@ -4,11 +4,13 @@ import { profileReducer } from './reducers/profileReducer';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import { navbarReducer } from './reducers/navbarReducer';
+import { userInfoReducer } from './reducers/userInfoReducer';
 const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
     usersPage: usersReducer,
-    navbar: navbarReducer
+    navbar: navbarReducer,
+    userInfo: userInfoReducer,
 })
 const initialState = {
 

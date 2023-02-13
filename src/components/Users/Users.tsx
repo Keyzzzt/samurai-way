@@ -1,51 +1,74 @@
-import { connect } from "react-redux"
-import {FC, Component} from 'react'
-import { Dispatch } from "redux"
-import { actions, UsersPageType, UserType } from "../../redux/reducers/usersReducer"
-import { StateType } from "../../redux/store"
-import axios from "axios"
+import s from "./users.module.css"
+import { FC } from "react"
+import { UsersPageType } from "../../redux/reducers/usersReducer"
+import { NavLink } from "react-router-dom"
+import { API } from "../../API/api"
 
+type UserProps = {
+  usersPage: UsersPageType
+  follow: (userId: number) => void
+  unFollow: (userId: number) => void
+  handleChangePage: (pageNr: number) => void
+}
 
-class UsersClass extends Component<UsersProps> {
-    componentDidMount(){
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-        .then(res => this.props.setUsers(res.data.items))
-    }
-    render(){
-        return (
-            <div>
-            {this.props.usersPage.users.map(u => (
-                <div key={u.id}>
-                    <div>
-                        <span>{u.name}</span>
-                        <img src={u.photos.small ? u.photos.small : ''} alt="" />
-                        {u.followed ? (<button onClick={() => this.props.unFollow(u.id)}>Unfollow</button>) : (<button onClick={() => this.props.follow(u.id)}>Follow</button>)}
-                    </div>
-                </div>
-            ))}
+export const Users: FC<UserProps> = ({
+  usersPage,
+  follow,
+  unFollow,
+  handleChangePage,
+}) => {
+  // const totalPages = Math.ceil(usersPage.totalUsersCount / usersPage.pageSize)
+  const arr = Array.from(Array(10).keys())
+  return (
+    <div>
+      <div className={s.pageNumbers}>
+        {arr.map((el, i) => (
+          <span
+            key={i}
+            onClick={() => handleChangePage(el + 1)}
+            className={
+              usersPage.currentPage === el + 1 ? s.activePage : undefined
+            }
+          >
+            {el + 1}
+          </span>
+        ))}
+      </div>
+      {usersPage.users.map((u) => (
+        <div key={u.id}>
+          <div>
+            <NavLink to={`/profile/${u.id}`}>{u.name}</NavLink>
+            <img src={u.photos.small ? u.photos.small : ""} alt="" />
+            {u.followed ? (
+              <button
+                onClick={() => {
+                  API.unFollow(u.id)
+                  .then((res) => {
+                    
+                    if (res.resultCode === 0) {
+                      unFollow(u.id)
+                    }
+                  })
+                }}
+              >
+                Unfollow
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  API.follow(u.id).then((res) => {
+                    if (res.resultCode === 0) {
+                      follow(u.id)
+                    }
+                  })
+                }}
+              >
+                Follow
+              </button>
+            )}
+          </div>
         </div>
-        )
-    }
+      ))}
+    </div>
+  )
 }
-type MSType = {
-    usersPage: UsersPageType
-}
-type MDType = {
-    follow: (userId: string) => void 
-    unFollow: (userId: string) => void 
-    setUsers: (users: UserType[]) => void
-    
-}
-export type UsersProps = MSType & MDType
-
-const ms = (state: StateType): MSType => {
-    return {usersPage: state.usersPage}
-}
-const md = (dispatch: Dispatch): MDType => {
-    return {
-        follow: (userId: string) => {dispatch(actions.followAC(userId))},
-        unFollow: (userId: string) => {dispatch(actions.unFollowAC(userId))},
-        setUsers: (users: UserType[]) => {dispatch(actions.setUsers(users))},
-    }
-}
-export const UsersContainer = connect(ms, md)(UsersClass)
