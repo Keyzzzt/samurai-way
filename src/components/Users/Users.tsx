@@ -2,19 +2,18 @@ import s from "./users.module.css"
 import { FC } from "react"
 import { UsersPageType } from "../../redux/reducers/usersReducer"
 import { NavLink } from "react-router-dom"
-import { API } from "../../API/api"
 
 type UserProps = {
   usersPage: UsersPageType
-  follow: (userId: number) => void
-  unFollow: (userId: number) => void
+  followTC: (userId: number) => void
+  unFollowTC: (userId: number) => void
   handleChangePage: (pageNr: number) => void
 }
 
 export const Users: FC<UserProps> = ({
   usersPage,
-  follow,
-  unFollow,
+  followTC,
+  unFollowTC,
   handleChangePage,
 }) => {
   // const totalPages = Math.ceil(usersPage.totalUsersCount / usersPage.pageSize)
@@ -42,13 +41,7 @@ export const Users: FC<UserProps> = ({
             {u.followed ? (
               <button
                 onClick={() => {
-                  API.unFollow(u.id)
-                  .then((res) => {
-                    
-                    if (res.resultCode === 0) {
-                      unFollow(u.id)
-                    }
-                  })
+                  unFollowTC(u.id)
                 }}
               >
                 Unfollow
@@ -56,11 +49,7 @@ export const Users: FC<UserProps> = ({
             ) : (
               <button
                 onClick={() => {
-                  API.follow(u.id).then((res) => {
-                    if (res.resultCode === 0) {
-                      follow(u.id)
-                    }
-                  })
+                    followTC(u.id)
                 }}
               >
                 Follow

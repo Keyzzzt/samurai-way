@@ -12,6 +12,7 @@ type ProfileInfoProps = {
 export const ProfileInfo :FC<ProfileInfoProps> = ({photos, description, fullname}) => {
   return (
     <div>
+      PROFILE INFO
       <div className={s.profileImage}>
         <img src={photos.small} alt="" />
       </div>

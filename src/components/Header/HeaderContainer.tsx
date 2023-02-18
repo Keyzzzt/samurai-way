@@ -3,18 +3,11 @@ import { Component, FC } from "react"
 import { Header } from "./Header"
 import { StateType } from "../../redux/store"
 import { connect } from "react-redux"
-import { actions, UserInfoType } from "../../redux/reducers/userInfoReducer"
-import { API } from "../../API/api"
-
+import { actions, userInfoTC, UserInfoType } from "../../redux/reducers/userInfoReducer"
 
 class HeaderAPI extends Component<HeaderAPIProps> {
   componentDidMount(): void {
-    API.authMe()
-    .then(res => {
-        return this.props.setUserInfo(res.data)
-        
-    })
-    .catch(e => alert(e))
+    this.props.userInfoTC()
   }
   render() {
     return (
@@ -27,7 +20,7 @@ type MS = {
   login: string | undefined
 }
 type MD = {
-  setUserInfo: (userInfo: UserInfoType) => void
+  userInfoTC: () => void
 }
 type HeaderAPIProps = MS & MD
 
@@ -37,7 +30,7 @@ const ms = (state: StateType) => {
   }
 }
 const md = {
-setUserInfo: actions.successAC
+  userInfoTC
 }
 
 export const HeaderContainer = connect(ms, md)(HeaderAPI)

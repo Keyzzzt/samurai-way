@@ -1,8 +1,8 @@
-import axios from "axios"
 import { Component } from "react"
 import { connect } from "react-redux"
 import { RouteComponentProps, withRouter } from "react-router-dom"
-import { actions, ProfileType } from "../../redux/reducers/profileReducer"
+import { getProfileTC, ProfileType } from "../../redux/reducers/profileReducer"
+import { userInfoStateType } from "../../redux/reducers/userInfoReducer"
 import { StateType } from "../../redux/store"
 import { Profile } from "./Profile"
 import s from "./Profile.module.css"
@@ -17,31 +17,33 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileAPIProps
 // Отдаем union тип пропсов компоненте
 export class ProfileAPI extends Component<PropsType> {
   componentDidMount() {
-    const userId = this.props.match.params.userId
-    console.log(userId)
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then((res) => this.props.setProfile(res.data))
+    let userId = +this.props.match.params.userId
+    if(!userId) {
+      userId = 2
+    }
+    this.props.getProfileTC(userId)
   }
   render() {
-    return <Profile profile={this.props.profile}/>
+    return <Profile profile={this.props.profile} userInfo={this.props.userInfo}/>
   }
 }
 
 type MS = {
   profile: ProfileType
+  userInfo: userInfoStateType
 }
 type MD = {
-  setProfile: (profile: ProfileType) => void
+  getProfileTC: (userId: number) => void
 }
 type ProfileAPIProps = MS & MD
 const ms = (state: StateType): MS => {
   return {
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    userInfo: state.userInfo
   }
 }
 const md: MD = {
-  setProfile: actions.setProfileAC
+  getProfileTC
 }
 
 

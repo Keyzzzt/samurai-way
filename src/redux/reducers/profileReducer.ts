@@ -1,3 +1,4 @@
+import { API } from './../../api';
 import { InferActionTypes, BaseThunkType } from "./../../types"
 
 type ThunkType = BaseThunkType<ActionType>
@@ -87,4 +88,15 @@ export const actions = {
     type: "UPDATE_NEW_POST_TEXT" as const,
     payload: text,
   }),
+}
+
+export const getProfileTC = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    try {
+      const profile = await API.getProfile(userId)
+      dispatch(actions.setProfileAC(profile))
+    } catch (error) {
+      alert(error)
+    }
+  }
 }

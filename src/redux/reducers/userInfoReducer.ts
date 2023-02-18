@@ -1,3 +1,4 @@
+import { API } from '../../api';
 import { BaseThunkType, InferActionTypes } from "../../types"
 
 type ThunkType = BaseThunkType<ActionType>
@@ -9,7 +10,7 @@ export type UserInfoType = {
   email: string
   login: string
 }
-type userInfoStateType = typeof initialState
+export type userInfoStateType = typeof initialState
 
 const initialState = {
   userInfo: null as null | UserInfoType,
@@ -48,4 +49,20 @@ export const actions = {
   }),
   failAC: (errMsg: string) => ({ type: "USER_INFO_FAIL" as const, payload: errMsg }),
 
+}
+
+export const userInfoTC = (): ThunkType => {
+  return async (dispatch) => {
+    try {
+      dispatch(actions.requestAC())
+      const data = await API.authMe()
+      if(data.resultCode === 0) {
+        dispatch(actions.successAC(data.data))
+      }
+      dispatch(actions.failAC(data.messages[0]))
+    } catch (error: any) {
+      dispatch(actions.failAC(error))
+      alert(error)
+    }
+  }
 }
